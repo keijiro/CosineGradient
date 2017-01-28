@@ -5,7 +5,7 @@ CosineGradient
 
 *CosineGradient* is a small package for generating cosine-based gradients in Unity.
 
-The idea of cosine-based gradients is based on [an article written by Inigo Quilez][iq]. See [the original article][iq] for further details.
+The idea of cosine-based gradients is based on [an article written by Íñigo Quílez][iq]. See [the original article][iq] for further details.
 
 [iq]: http://www.iquilezles.org/www/articles/palettes/palettes.htm
 
