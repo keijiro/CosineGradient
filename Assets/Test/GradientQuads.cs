@@ -20,7 +20,7 @@ public class GradientQuads : MonoBehaviour
         {
             var pos = transform.TransformPoint(Vector3.right * (i * 1.05f));
 
-            _block.SetColor("_Color", _grad.GetColor(i / (_quadCount - 1.0f)));
+            _block.SetColor("_Color", _grad.Evaluate(i / (_quadCount - 1.0f)));
 
             Graphics.DrawMesh(
                 _mesh, pos, Quaternion.identity, _material,

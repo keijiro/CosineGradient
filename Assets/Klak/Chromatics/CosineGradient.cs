@@ -72,8 +72,8 @@ namespace Klak.Chromatics
 
         #region Public methods
 
-        /// Calculate a color at a given point in the gradient.
-        public Color GetColor(float t)
+        /// Evaluate a color at a given point in the gradient.
+        public Color Evaluate(float t)
         {
             var r = Mathf.Cos((  _redCoeffs.z * t +   _redCoeffs.w) * Mathf.PI * 2);
             var g = Mathf.Cos((_greenCoeffs.z * t + _greenCoeffs.w) * Mathf.PI * 2);
