@@ -1,0 +1,8 @@
+{
+    "name": "jp.keijiro.klak.chromatics",
+    "displayName": "Klak Chromatics",
+    "version": "0.0.1",
+    "unity": "2018.1",
+    "description": "CosineGradient is a small package for generating cosine-based gradients in Unity.",
+    "dependencies": { }
+}
