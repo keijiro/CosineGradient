@@ -1,32 +1,20 @@
-﻿// Preview shader for cosine gradient
+﻿// Preview shader for custom property drawer
 Shader "Hidden/Klak/Chromatics/CosineGradient/Preview"
 {
     CGINCLUDE
 
     #include "UnityCG.cginc"
+    #include "Packages/jp.keijiro.klak.cosinegradient/Runtime/CosineGradient.hlsl"
 
-    half3 _CoeffsA;
-    half3 _CoeffsB;
-    half3 _CoeffsC;
-    half3 _CoeffsD;
+    float3 _CoeffsA;
+    float3 _CoeffsB;
+    float3 _CoeffsC;
+    float3 _CoeffsD;
 
-    struct v2f
+    float4 frag(v2f_img i) : SV_Target
     {
-        float4 vertex : SV_POSITION;
-        float2 uv : TEXCOORD0;
-    };
-
-    half4 frag (v2f i) : SV_Target
-    {
-        half t = i.uv.x;
-
-        half3 rgb = saturate(_CoeffsA + _CoeffsB * cos(_CoeffsC * t + _CoeffsD));
-
-        #if !defined(UNITY_COLORSPACE_GAMMA)
-        rgb = GammaToLinearSpace(rgb);
-        #endif
-
-        return half4(rgb, 1);
+        float3 rgb = CosineGradient(_CoeffsA, _CoeffsB, _CoeffsC, _CoeffsD, i.uv.x);
+        return float4(rgb, 1);
     }
 
     ENDCG
@@ -36,10 +24,8 @@ Shader "Hidden/Klak/Chromatics/CosineGradient/Preview"
         Pass
         {
             CGPROGRAM
-            #pragma multi_compile __ UNITY_COLORSPACE_GAMMA
             #pragma vertex vert_img
             #pragma fragment frag
-            #pragma target 3.0
             ENDCG
         }
     }
