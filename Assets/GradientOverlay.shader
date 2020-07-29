@@ -8,24 +8,12 @@
     CGINCLUDE
 
     #include "UnityCG.cginc"
-    #include "SimplexNoise3D.cginc"
-
-    half3 _CoeffsA;
-    half3 _CoeffsB;
-    half3 _CoeffsC;
-    half3 _CoeffsD;
-
-    half3 CosineGradient(float p)
-    {
-        half3 rgb = saturate(_CoeffsA + _CoeffsB * cos(_CoeffsC * p + _CoeffsD));
-        #if !defined(UNITY_COLORSPACE_GAMMA)
-        rgb = GammaToLinearSpace(rgb);
-        #endif
-        return rgb;
-    }
+    #include "Packages/jp.keijiro.noiseshader/Shader/SimplexNoise3D.hlsl"
+    #include "Packages/jp.keijiro.klak.cosinegradient/Runtime/CosineGradient.hlsl"
 
     sampler2D _MainTex;
 
+    float4x4 _Gradient;
     half _Opacity;
     half2 _Direction;
     float _Frequency;
@@ -47,7 +35,10 @@
         p = lerp(p, snoise(float3(uv, _NoiseAnimation)), _NoiseStrength);
 
         // Pick color from the gradient.
-        half3 rgb = CosineGradient(p);
+        half3 rgb = CosineGradient(_Gradient, p);
+        #if !defined(UNITY_COLORSPACE_GAMMA)
+        rgb = GammaToLinearSpace(rgb);
+        #endif
 
         // Mix with the source.
         half4 col = tex2D(_MainTex, i.uv);

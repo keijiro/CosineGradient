@@ -34,6 +34,16 @@ namespace Klak.Chromatics
 
         #endregion
 
+        #region Conversion operator
+
+        public static implicit operator float4x3(CosineGradient g)
+          => math.float4x3(g.R, g.G, g.B);
+
+        public static implicit operator Matrix4x4(CosineGradient g)
+          => new Matrix4x4(g.R, g.G, g.B, Vector4.zero);
+
+        #endregion
+
         #region Evaluator method
 
         public float3 EvaluateAsFloat3(float t)

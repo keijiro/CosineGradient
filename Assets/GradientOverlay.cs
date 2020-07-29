@@ -58,11 +58,7 @@ public class GradientOverlay : MonoBehaviour
             _material.hideFlags = HideFlags.DontSave;
         }
 
-        _material.SetVector("_CoeffsA", (Vector3)_gradient.CoeffsA);
-        _material.SetVector("_CoeffsB", (Vector3)_gradient.CoeffsB);
-        _material.SetVector("_CoeffsC", (Vector3)_gradient.CoeffsC2);
-        _material.SetVector("_CoeffsD", (Vector3)_gradient.CoeffsD2);
-
+        _material.SetMatrix("_Gradient", _gradient);
         _material.SetFloat("_Opacity", _opacity);
 
         var rad = Mathf.Deg2Rad * _direction;

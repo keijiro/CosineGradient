@@ -14,6 +14,13 @@
       "dependencies": {
         "com.unity.mathematics": "1.1.0"
       }
+    },
+    "jp.keijiro.noiseshader": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://registry.npmjs.com"
     }
   }
 }

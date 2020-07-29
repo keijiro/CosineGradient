@@ -87,10 +87,7 @@ sealed class CosineGradientGraphDrawer
             _material.hideFlags = HideFlags.DontSave;
         }
 
-        _material.SetVector("_CoeffsA", (Vector3)grad.CoeffsA);
-        _material.SetVector("_CoeffsB", (Vector3)grad.CoeffsB);
-        _material.SetVector("_CoeffsC", (Vector3)grad.CoeffsC2);
-        _material.SetVector("_CoeffsD", (Vector3)grad.CoeffsD2);
+        _material.SetMatrix("_Gradient", grad);
 
         EditorGUI.DrawPreviewTexture
           (Rect, EditorGUIUtility.whiteTexture, _material);
