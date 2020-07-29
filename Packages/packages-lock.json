@@ -1,10 +1,19 @@
 {
   "dependencies": {
+    "com.unity.mathematics": {
+      "version": "1.1.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "jp.keijiro.klak.cosinegradient": {
       "version": "file:jp.keijiro.klak.cosinegradient",
       "depth": 0,
       "source": "embedded",
-      "dependencies": {}
+      "dependencies": {
+        "com.unity.mathematics": "1.1.0"
+      }
     }
   }
 }

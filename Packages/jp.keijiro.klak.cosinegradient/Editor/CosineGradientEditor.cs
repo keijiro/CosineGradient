@@ -1,6 +1,8 @@
 using UnityEditor;
 using UnityEngine;
 
+#if DO_NOT_COMPILE_THIS
+
 namespace Klak.Chromatics
 {
     // Custom editor for cosine gradient object
@@ -190,3 +192,5 @@ namespace Klak.Chromatics
         }
     }
 }
+
+#endif

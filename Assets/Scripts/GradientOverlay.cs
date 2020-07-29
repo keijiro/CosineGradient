@@ -8,7 +8,7 @@ public class GradientOverlay : MonoBehaviour
     #region Editable properties
 
     [Space]
-    [SerializeField] CosineGradient _gradient = null;
+    [SerializeField] CosineGradient _gradient = CosineGradient.DefaultGradient;
     [SerializeField, Range(0, 1)] float _opacity = 1;
 
     [Space]
@@ -52,22 +52,16 @@ public class GradientOverlay : MonoBehaviour
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        if (_gradient == null)
-        {
-            Graphics.Blit(source, destination);
-            return;
-        }
-
         if (_material == null)
         {
             _material = new Material(_shader);
             _material.hideFlags = HideFlags.DontSave;
         }
 
-        _material.SetVector("_CoeffsA", _gradient.coeffsA);
-        _material.SetVector("_CoeffsB", _gradient.coeffsB);
-        _material.SetVector("_CoeffsC", _gradient.coeffsC2);
-        _material.SetVector("_CoeffsD", _gradient.coeffsD2);
+        _material.SetVector("_CoeffsA", (Vector3)_gradient.CoeffsA);
+        _material.SetVector("_CoeffsB", (Vector3)_gradient.CoeffsB);
+        _material.SetVector("_CoeffsC", (Vector3)_gradient.CoeffsC2);
+        _material.SetVector("_CoeffsD", (Vector3)_gradient.CoeffsD2);
 
         _material.SetFloat("_Opacity", _opacity);
 

@@ -1,87 +1,48 @@
 ﻿using UnityEngine;
+using Unity.Mathematics;
 
 namespace Klak.Chromatics
 {
-    /// Cosine gradient object
-    [CreateAssetMenu(order = 1000)]
-    public class CosineGradient : ScriptableObject
+    [System.Serializable]
+    public struct CosineGradient
     {
-        #region Serialized fields
+        #region Public members
 
-        [SerializeField] Vector4 _redCoeffs   = new Vector4(0.5f, 0.5f, 1, 0);
-        [SerializeField] Vector4 _greenCoeffs = new Vector4(0.5f, 0.5f, 1, 0.333f);
-        [SerializeField] Vector4 _blueCoeffs  = new Vector4(0.5f, 0.5f, 1, 0.665f);
+        public float4 R, G, B;
 
         #endregion
 
-        #region Public accessors
+        #region Default value
 
-        /// Packed coefficients of the red component (A, B, C, D).
-        public Vector4 redCoeffs {
-            get { return _redCoeffs; }
-            set { _redCoeffs = value; }
-        }
-
-        /// Packed coefficients of the green component (A, B, C, D).
-        public Vector4 greenCoeffs {
-            get { return _greenCoeffs; }
-            set { _greenCoeffs = value; }
-        }
-
-        /// Packed coefficients of the blue component (A, B, C, D).
-        public Vector4 blueCoeffs {
-            get { return _blueCoeffs; }
-            set { _blueCoeffs = value; }
-        }
+        public static CosineGradient DefaultGradient
+          => new CosineGradient
+            { R = math.float4(0.5f, 0.5f, 1, 0),
+              G = math.float4(0.5f, 0.5f, 1, 1.0f / 3),
+              B = math.float4(0.5f, 0.5f, 1, 2.0f / 3) };
 
         #endregion
 
-        #region Public accessors (read only)
+        #region Accessor properties
 
-        /// A-coefficient of the gradient packed in (red, green, blue).
-        public Vector3 coeffsA {
-            get { return new Vector3(_redCoeffs.x, _greenCoeffs.x, _blueCoeffs.x); }
-        }
+        public float3 CoeffsA => math.float3(R.x, G.x, B.x);
+        public float3 CoeffsB => math.float3(R.y, G.y, B.y);
+        public float3 CoeffsC => math.float3(R.z, G.z, B.z);
+        public float3 CoeffsD => math.float3(R.w, G.w, B.w);
 
-        /// B-coefficient of the gradient packed in (red, green, blue).
-        public Vector3 coeffsB {
-            get { return new Vector3(_redCoeffs.y, _greenCoeffs.y, _blueCoeffs.y); }
-        }
-
-        /// C-coefficient of the gradient packed in (red, green, blue).
-        public Vector3 coeffsC {
-            get { return new Vector3(_redCoeffs.z, _greenCoeffs.z, _blueCoeffs.z); }
-        }
-
-        /// C-coefficients multiplied by PI * 2.
-        public Vector3 coeffsC2 {
-            get { return coeffsC * Mathf.PI * 2; }
-        }
-
-        /// D-coefficient of the gradient packed in (red, green, blue).
-        public Vector3 coeffsD {
-            get { return new Vector3(_redCoeffs.w, _greenCoeffs.w, _blueCoeffs.w); }
-        }
-
-        /// D-coefficients multiplied by PI * 2.
-        public Vector3 coeffsD2 {
-            get { return coeffsD * Mathf.PI * 2; }
-        }
+        public float3 CoeffsC2 => CoeffsC * math.PI * 2;
+        public float3 CoeffsD2 => CoeffsD * math.PI * 2;
 
         #endregion
 
-        #region Public methods
+        #region Evaluator method
 
-        /// Evaluate a color at a given point in the gradient.
+        public float3 EvaluateAsFloat3(float t)
+          => CoeffsA + CoeffsB * math.cos(CoeffsC2 * t + CoeffsD2);
+
         public Color Evaluate(float t)
         {
-            var r = Mathf.Cos((  _redCoeffs.z * t +   _redCoeffs.w) * Mathf.PI * 2);
-            var g = Mathf.Cos((_greenCoeffs.z * t + _greenCoeffs.w) * Mathf.PI * 2);
-            var b = Mathf.Cos(( _blueCoeffs.z * t +  _blueCoeffs.w) * Mathf.PI * 2);
-            r = Mathf.Clamp01(  _redCoeffs.x +   _redCoeffs.y * r);
-            g = Mathf.Clamp01(_greenCoeffs.x + _greenCoeffs.y * g);
-            b = Mathf.Clamp01( _blueCoeffs.x +  _blueCoeffs.y * b);
-            return new Color(r, g, b);
+            var c = EvaluateAsFloat3(t);
+            return new Color(c.x, c.y, c.z);
         }
 
         #endregion
