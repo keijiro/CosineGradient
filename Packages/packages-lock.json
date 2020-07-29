@@ -1,3 +1,10 @@
 {
-  "dependencies": {}
+  "dependencies": {
+    "jp.keijiro.klak.cosinegradient": {
+      "version": "file:jp.keijiro.klak.cosinegradient",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    }
+  }
 }

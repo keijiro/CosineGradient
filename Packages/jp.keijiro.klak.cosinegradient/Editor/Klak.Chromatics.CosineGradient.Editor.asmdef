@@ -1,0 +1,17 @@
+{
+    "name": "Klak.Chromatics.CosineGradient.Editor",
+    "references": [
+        "GUID:4940e6b024efb262a9ad5ceb27a831c9"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

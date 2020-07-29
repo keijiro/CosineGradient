@@ -1,0 +1,14 @@
+{
+  "author": "Keijiro Takahashi",
+  "dependencies": { },
+  "description": "Procedural color generator based on simple cosine formulas",
+  "displayName": "Cosine Gradient",
+  "keywords": [ "unity" ],
+  "license": "Unlicense",
+  "name": "jp.keijiro.klak.cosinegradient",
+  "repository": "github:keijiro/CosineGradient",
+  "unity": "2019.4",
+  "unityRelease": "0f1",
+  "version": "0.1.0"
+}
+
