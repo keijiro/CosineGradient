@@ -1,8 +1,7 @@
 using UnityEngine;
 using Klak.Chromatics;
 
-[ExecuteInEditMode]
-[RequireComponent(typeof(Camera))]
+[ExecuteInEditMode, RequireComponent(typeof(Camera))]
 public class GradientOverlay : MonoBehaviour
 {
     #region Editable properties
@@ -25,6 +24,7 @@ public class GradientOverlay : MonoBehaviour
     #region Private members
 
     [SerializeField, HideInInspector] Shader _shader = null;
+
     Material _material;
     float _scroll;
     float _noiseOffset;
@@ -43,11 +43,10 @@ public class GradientOverlay : MonoBehaviour
 
     void Update()
     {
-        if (Application.isPlaying)
-        {
-            _scroll += _scrollSpeed * Time.deltaTime;
-            _noiseOffset += _noiseAnimation * Time.deltaTime;
-        }
+        if (!Application.isPlaying) return;
+
+        _scroll += _scrollSpeed * Time.deltaTime;
+        _noiseOffset += _noiseAnimation * Time.deltaTime;
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
@@ -62,9 +61,8 @@ public class GradientOverlay : MonoBehaviour
         _material.SetFloat("_Opacity", _opacity);
 
         var rad = Mathf.Deg2Rad * _direction;
-        _material.SetVector("_Direction", new Vector2(
-            Mathf.Cos(rad), Mathf.Sin(rad)
-        ));
+        var dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+        _material.SetVector("_Direction", dir);
 
         _material.SetFloat("_Frequency", _frequency);
         _material.SetFloat("_Scroll", _scroll);

@@ -22,10 +22,9 @@ public class GradientQuads : MonoBehaviour
 
             _block.SetColor("_Color", _grad.Evaluate(i / (_quadCount - 1.0f)));
 
-            Graphics.DrawMesh(
-                _mesh, pos, Quaternion.identity, _material,
-                gameObject.layer, null, 0, _block
-            );
+            Graphics.DrawMesh
+              (_mesh, pos, Quaternion.identity,
+               _material, gameObject.layer, null, 0, _block);
         }
     }
 }
