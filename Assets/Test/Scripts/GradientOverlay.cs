@@ -8,7 +8,7 @@ public class GradientOverlay : MonoBehaviour
     #region Editable properties
 
     [Space]
-    [SerializeField] CosineGradient _gradient;
+    [SerializeField] CosineGradient _gradient = null;
     [SerializeField, Range(0, 1)] float _opacity = 1;
 
     [Space]
@@ -24,7 +24,7 @@ public class GradientOverlay : MonoBehaviour
 
     #region Private members
 
-    [SerializeField, HideInInspector] Shader _shader;
+    [SerializeField, HideInInspector] Shader _shader = null;
     Material _material;
     float _scroll;
     float _noiseOffset;

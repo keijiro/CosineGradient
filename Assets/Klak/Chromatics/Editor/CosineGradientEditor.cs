@@ -14,7 +14,7 @@ namespace Klak.Chromatics
         SerializedProperty _greenCoeffs;
         SerializedProperty _blueCoeffs;
 
-        [SerializeField] Shader _previewShader;
+        [SerializeField] Shader _previewShader = null;
 
         void OnEnable()
         {

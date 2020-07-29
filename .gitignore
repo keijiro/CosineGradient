@@ -6,14 +6,15 @@ Desktop.ini
 .DS_Store
 
 # Code Editors
-.idea
-.vscode
-*.csproj
-*.sln
+/.idea
+/.vscode
+/*.csproj
+/*.sln
 *.swp
-xcuserdata
-xcshareddata
+*.vcxproj.user
 
 # Unity
 /Library
+/Logs
+/Recordings
 /Temp

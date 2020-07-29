@@ -4,11 +4,11 @@ using Klak.Chromatics;
 [ExecuteInEditMode]
 public class GradientQuads : MonoBehaviour
 {
-    [SerializeField] CosineGradient _grad;
-    [SerializeField] Material _material;
+    [SerializeField] CosineGradient _grad = null;
+    [SerializeField] Material _material = null;
     [SerializeField] int _quadCount = 16;
 
-    [SerializeField, HideInInspector] Mesh _mesh;
+    [SerializeField, HideInInspector] Mesh _mesh = null;
 
     MaterialPropertyBlock _block;
 
