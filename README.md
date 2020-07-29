@@ -1,7 +1,7 @@
 CosineGradient
 ==============
 
-![gif](http://i.imgur.com/NT53COT.gif)
+![gif](https://i.imgur.com/z0KYTCt.gif)
 
 **CosineGradient** is a Unity package for generating cosine-based gradients.
 
