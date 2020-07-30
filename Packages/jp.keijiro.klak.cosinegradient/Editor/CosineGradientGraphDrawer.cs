@@ -9,13 +9,6 @@ namespace Klak.Chromatics {
 
 sealed class CosineGradientGraphDrawer
 {
-    #region Public property
-
-    // Draw area rectangle
-    public Rect Rect { get; set; }
-
-    #endregion
-
     #region Internal members
 
     // Preview shader (exists in the resources directory)
@@ -28,19 +21,31 @@ sealed class CosineGradientGraphDrawer
     // Preview shader material
     static Material _material;
 
+    // Draw area rectangle
+    Rect _rect;
+
     // Vertex buffers
-    Vector3[] _rectVertices = new Vector3[4];
     Vector3[] _lineVertices = new Vector3[2];
     Vector3[] _curveVertices = new Vector3[CurveResolution];
 
     // Transform a point into the draw area rectangle.
     Vector3 PointInRect(float x, float y)
-      => new Vector3(Mathf.Lerp(Rect.x, Rect.xMax, x),
-                     Mathf.Lerp(Rect.yMax, Rect.y, y), 0);
+      => new Vector3(Mathf.Lerp(_rect.x, _rect.xMax, x),
+                     Mathf.Lerp(_rect.yMax, _rect.y, y), 0);
 
     #endregion
 
     #region Public methods
+
+    public void SetRect(Rect rect)
+    {
+        // Shrink slightly
+        rect.x += 3;
+        rect.y ++;
+        rect.width -= 4;
+        rect.height -= 2;
+        _rect = rect;
+    }
 
     public void DrawLine(float x1, float y1, float x2, float y2, Color color)
     {
@@ -51,19 +56,6 @@ sealed class CosineGradientGraphDrawer
         Handles.DrawAAPolyLine(2, _lineVertices);
     }
 
-    public void DrawRect
-      (float x1, float y1, float x2, float y2, float fill, float line)
-    {
-        _rectVertices[0] = PointInRect(x1, y1);
-        _rectVertices[1] = PointInRect(x2, y1);
-        _rectVertices[2] = PointInRect(x2, y2);
-        _rectVertices[3] = PointInRect(x1, y2);
-
-        Handles.DrawSolidRectangleWithOutline
-          (_rectVertices,
-           fill < 0 ? Color.clear : Color.white * fill,
-           line < 0 ? Color.clear : Color.white * line);
-    }
 
     public void DrawGradientCurve(Vector4 coeffs, Color color)
     {
@@ -90,7 +82,7 @@ sealed class CosineGradientGraphDrawer
         _material.SetMatrix("_Gradient", grad);
 
         EditorGUI.DrawPreviewTexture
-          (Rect, EditorGUIUtility.whiteTexture, _material);
+          (_rect, EditorGUIUtility.whiteTexture, _material);
     }
 
     #endregion

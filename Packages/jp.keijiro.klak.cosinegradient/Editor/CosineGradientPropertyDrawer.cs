@@ -66,19 +66,23 @@ public class CosineGradientPropertyDrawer : PropertyDrawer
         rect.x += labelWidth;
         rect.width -= labelWidth;
         rect.height = lineHeight * 2 + lineSpace;
-        _graph.Rect = rect;
+        _graph.SetRect(rect);
 
         // Graph: Background
         _graph.DrawPreview(gradient);
 
         // Graph: Horizontal line
         var lineColor = Color.white * 0.4f;
+        //_graph.DrawLine(0,    0, 1,    0, lineColor);
         _graph.DrawLine(0, 0.5f, 1, 0.5f, lineColor);
+        //_graph.DrawLine(0,    1, 1,    1, lineColor);
 
         // Graph: Vertical lines
+        //_graph.DrawLine(    0, 0,     0, 1, lineColor);
         _graph.DrawLine(0.25f, 0, 0.25f, 1, lineColor);
         _graph.DrawLine(0.50f, 0, 0.50f, 1, lineColor);
         _graph.DrawLine(0.75f, 0, 0.75f, 1, lineColor);
+        //_graph.DrawLine(    1, 0,     1, 1, lineColor);
 
         // Graph: R/G/B curves
         _graph.DrawGradientCurve(rvalue, Color.red);
@@ -92,6 +96,10 @@ public class CosineGradientPropertyDrawer : PropertyDrawer
         // Minimize the label width.
         EditorGUIUtility.labelWidth = 12;
 
+        // Cancel indentation.
+        var indent = EditorGUI.indentLevel;
+        EditorGUI.indentLevel = 0;
+
         // Red
         EditorGUI.PropertyField(rect, rprop, GUIContent.none);
         rect.y += lineHeight + lineSpace;
@@ -103,8 +111,9 @@ public class CosineGradientPropertyDrawer : PropertyDrawer
         // Blue
         EditorGUI.PropertyField(rect, bprop, GUIContent.none);
 
-        // Recover the original label width.
+        // Recover the original label width and indent level.
         EditorGUIUtility.labelWidth = labelWidth;
+        EditorGUI.indentLevel = indent;
     }
 
     #endregion
