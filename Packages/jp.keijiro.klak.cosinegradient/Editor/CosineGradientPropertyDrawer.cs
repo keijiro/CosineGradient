@@ -73,16 +73,12 @@ public class CosineGradientPropertyDrawer : PropertyDrawer
 
         // Graph: Horizontal line
         var lineColor = Color.white * 0.4f;
-        //_graph.DrawLine(0,    0, 1,    0, lineColor);
         _graph.DrawLine(0, 0.5f, 1, 0.5f, lineColor);
-        //_graph.DrawLine(0,    1, 1,    1, lineColor);
 
         // Graph: Vertical lines
-        //_graph.DrawLine(    0, 0,     0, 1, lineColor);
         _graph.DrawLine(0.25f, 0, 0.25f, 1, lineColor);
         _graph.DrawLine(0.50f, 0, 0.50f, 1, lineColor);
         _graph.DrawLine(0.75f, 0, 0.75f, 1, lineColor);
-        //_graph.DrawLine(    1, 0,     1, 1, lineColor);
 
         // Graph: R/G/B curves
         _graph.DrawGradientCurve(rvalue, Color.red);
@@ -119,4 +115,4 @@ public class CosineGradientPropertyDrawer : PropertyDrawer
     #endregion
 }
 
-}
+} // namespace Klak.Chromatics
