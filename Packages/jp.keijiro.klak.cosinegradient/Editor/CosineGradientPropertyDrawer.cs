@@ -14,11 +14,34 @@ public class CosineGradientPropertyDrawer : PropertyDrawer
 
     CosineGradientGraphDrawer _graph;
 
+    static class Style
+    {
+        public static GUIContent Randomize = new GUIContent("Randomize");
+    }
+
     Vector4 ReadFloat4AsVector4(SerializedProperty prop)
       => new Vector4(prop.FindPropertyRelative("x").floatValue,
                      prop.FindPropertyRelative("y").floatValue,
                      prop.FindPropertyRelative("z").floatValue,
                      prop.FindPropertyRelative("w").floatValue);
+
+    void Randomize(SerializedProperty prop)
+    {
+        prop.serializedObject.Update();
+        prop.FindPropertyRelative("R.x").floatValue = Random.value;
+        prop.FindPropertyRelative("R.y").floatValue = Random.value;
+        prop.FindPropertyRelative("R.z").floatValue = Random.value * 2;
+        prop.FindPropertyRelative("R.w").floatValue = Random.value;
+        prop.FindPropertyRelative("G.x").floatValue = Random.value;
+        prop.FindPropertyRelative("G.y").floatValue = Random.value;
+        prop.FindPropertyRelative("G.z").floatValue = Random.value * 2;
+        prop.FindPropertyRelative("G.w").floatValue = Random.value;
+        prop.FindPropertyRelative("B.x").floatValue = Random.value;
+        prop.FindPropertyRelative("B.y").floatValue = Random.value;
+        prop.FindPropertyRelative("B.z").floatValue = Random.value * 2;
+        prop.FindPropertyRelative("B.w").floatValue = Random.value;
+        prop.serializedObject.ApplyModifiedProperties();
+    }
 
     #endregion
 
@@ -71,6 +94,17 @@ public class CosineGradientPropertyDrawer : PropertyDrawer
         rect.width -= labelWidth;
         rect.height = lineHeight * 2 + lineSpace;
         _graph.SetRect(rect);
+
+        // Right-click menu
+        var ev = Event.current;
+        if (ev.type == EventType.MouseDown && ev.button == 1 &&
+            rect.Contains(ev.mousePosition))
+        {
+            var menu = new GenericMenu();
+            menu.AddItem(Style.Randomize, false, () => Randomize(prop));
+            menu.ShowAsContext();
+            ev.Use();
+        }
 
         // Graph: Background
         _graph.DrawPreview(gradient);
