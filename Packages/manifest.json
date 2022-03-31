@@ -7,6 +7,6 @@
     }
   ],
   "dependencies": {
-    "jp.keijiro.noiseshader": "1.0.0"
+    "jp.keijiro.noiseshader": "2.0.0"
   }
 }

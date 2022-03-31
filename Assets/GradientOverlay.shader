@@ -32,7 +32,7 @@
         float p = dot(uv, _Direction);
 
         // Noise field
-        p = lerp(p, snoise(float3(uv, _NoiseAnimation)), _NoiseStrength);
+        p = lerp(p, SimplexNoise(float3(uv, _NoiseAnimation)), _NoiseStrength);
 
         // Pick color from the gradient.
         float3 rgb = CosineGradient(_Gradient, p);
