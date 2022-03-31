@@ -32,6 +32,9 @@ public class CosineGradientPropertyDrawer : PropertyDrawer
     public override void
       OnGUI(Rect rect, SerializedProperty prop, GUIContent label)
     {
+        // Entry
+        EditorGUI.BeginProperty(rect, label, prop);
+
         // Graph drawer object lazy initialization
         if (_graph == null) _graph = new CosineGradientGraphDrawer();
 
@@ -59,8 +62,9 @@ public class CosineGradientPropertyDrawer : PropertyDrawer
         var lineSpace = EditorGUIUtility.standardVerticalSpacing;
 
         // Draw the prefix label.
+        var labelID = GUIUtility.GetControlID(FocusType.Passive);
         rect.height = lineHeight;
-        EditorGUI.LabelField(rect, label);
+        EditorGUI.PrefixLabel(rect, labelID, label);
 
         // Calculate the graph area.
         rect.x += labelWidth;
@@ -110,6 +114,9 @@ public class CosineGradientPropertyDrawer : PropertyDrawer
         // Recover the original label width and indent level.
         EditorGUIUtility.labelWidth = labelWidth;
         EditorGUI.indentLevel = indent;
+
+        // Exit
+        EditorGUI.EndProperty();
     }
 
     #endregion
